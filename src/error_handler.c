@@ -9,5 +9,10 @@ int	error_handler(char *error_msg, void *param)
 		ft_printf("Window Error\n");
 		free(param);
 	}
+	else if (strcmp(error_msg, "image_error") == 0)
+	{
+		ft_printf("Image Error\n");
+	}
+	
 	return (1);
 }

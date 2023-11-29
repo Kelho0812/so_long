@@ -4,19 +4,30 @@ int	main(void)
 {
 	t_data	data;
 
-	data.mlx_ptr = mlx_init();
-	if (!data.mlx_ptr)
+	/* Create the data */
+	data.mlx = mlx_init();
+	if (!data.mlx)
 		return (error_handler("mlx_error", NULL));
-	data.win_ptr = mlx_new_window(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT,
+	data.img.img = mlx_xpm_file_to_image(data.mlx, "Rock1_1.xpm",
+			&data.img.width, &data.img.height);
+	if (!data.img.img)
+		return (error_handler("image_error", data.mlx));
+
+	data.floor.img = mlx_xpm_file_to_image(data.mlx, "Map_tile_23.xpm",
+			&data.floor.width, &data.floor.height);
+	if (!data.floor.img)
+		return (error_handler("image_error", data.mlx));
+	/* Create the window */
+	data.win = mlx_new_window(data.mlx, data.floor.width * 30, data.floor.height * 30,
 			"my window");
-	if (!data.win_ptr)
-		return (error_handler("window_error", data.mlx_ptr));
+	if (!data.win)
+		return (error_handler("window_error", data.mlx));
 	/* Setup hooks */
-	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
-	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy,
-		&data);
-	mlx_loop(data.mlx_ptr);
+	mlx_loop_hook(data.mlx, &render, &data);
+	mlx_hook(data.win, KeyPress, KeyPressMask, &handle_keypress, &data);
+	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &on_destroy, &data);
+	mlx_loop(data.mlx);
 	/* we will exit the loop if there's no window left, and execute this code */
-	mlx_destroy_display(data.mlx_ptr);
-	free(data.mlx_ptr);
+	mlx_destroy_display(data.mlx);
+	free(data.mlx);
 }
