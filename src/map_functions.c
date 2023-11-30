@@ -6,19 +6,21 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:16:43 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/11/30 14:49:18 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:24:09 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 #include <errno.h>
 
-char	**parse_n_validate_map(void)
+char	**parse_n_validate_map(char *map_path)
 {
 	int		fd;
 	char	**map_array;
 
-	fd = open("./src/example.txt", O_RDONLY);
+	fd = open(map_path, O_RDONLY);
+	if (fd < 0)
+		error_handler(ERR_MAP_OPEN, NULL, NULL);
 	map_array = map_parser(fd);
 	close(fd);
 	map_validator(map_array);
@@ -51,8 +53,7 @@ char	**map_parser(int fd)
 	}
 	free(line);
 	lines = realloc(lines, (count + 1) * sizeof(char *));
-	lines[count] = NULL;
-	return (lines);
+	return (lines[count] = NULL, lines);
 }
 
 void	map_validator(char **map_array)
@@ -94,5 +95,9 @@ void	check_size(char **map_array)
 			error_handler(ERR_MAP_RECT, NULL, (void **)map_array);
 		}
 		i++;
+	}
+	if (ft_strlen(map_array[0]) == (size_t)(i))
+	{
+		error_handler(ERR_MAP_RECT, NULL, (void **)map_array);
 	}
 }

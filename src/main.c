@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:25:07 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/11/30 14:54:42 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:21:42 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@
 
 #include "../include/so_long.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
+	if (argc != 2)
+	{
+		printf("You should write: %s <map_relative_path>\n", argv[0]);
+		return (1);
+	}
+	
+	// t_data	data;
 	char	**map_array;
 	int		i;
 
-	map_array = parse_n_validate_map();
-	// t_data	data;
+	map_array = parse_n_validate_map(argv[1]);
 	// data.mlx = mlx_init();
 	// if (!data.mlx)
 	// 	return (error_handler(ERR_MLX, NULL, NULL));

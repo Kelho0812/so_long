@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:25:20 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/11/30 14:55:40 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:27:24 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	error_handler(int error_msg, void *param, void **param2)
 	}
 	else if (error_msg == ERR_IMAGE)
 		ft_printf("Image Error\n");
-	else if (error_msg == ERR_MAP_CHARS)
+	else if (error_msg == ERR_MAP_CHARS )
 	{
 		ft_printf("Map Error (Wrong Chars)\n");
 		free_pnts(param2);

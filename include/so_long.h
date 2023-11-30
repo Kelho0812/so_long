@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 12:08:35 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/11/30 14:33:33 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:24:37 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ typedef struct s_data
 # define ERR_MLX 2
 # define ERR_WINDOW 3
 # define ERR_IMAGE 4
-# define ERR_MAP_CHARS 5
-# define ERR_MAP_RECT 6
-# define ERR_MAP_WALLS 7
+# define ERR_MAP_OPEN 5
+# define ERR_MAP_CHARS 6
+# define ERR_MAP_RECT 7
+# define ERR_MAP_WALLS 8
 
 int					error_handler(int error_msg, void *param, void **param2);
 
@@ -89,7 +90,7 @@ int					change_color(t_data *data);
 /*                                MAP                                        */
 /* ************************************************************************** */
 
-char				**parse_n_validate_map(void);
+char				**parse_n_validate_map(char *map_path);
 char				**map_parser(int fd);
 void				map_validator(char **map_array);
 void				check_letters(char **map_array);
