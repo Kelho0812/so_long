@@ -54,6 +54,5 @@ dkms.conf
 include/minilibx-linux
 .gitignore
 so_long
-include/minilibx-linux
-include/minilibx-linux
-include/minilibx-linux
+include/minilibx-linux/minilibx-linux
+include/minilibx-linux/
