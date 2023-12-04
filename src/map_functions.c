@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:16:43 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/11/30 16:24:09 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/04 08:54:54 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	map_validator(char **map_array)
 {
 	check_letters(map_array);
 	check_size(map_array);
+	check_outside_walls(map_array);
 }
 
 void	check_letters(char **map_array)
@@ -99,5 +100,32 @@ void	check_size(char **map_array)
 	if (ft_strlen(map_array[0]) == (size_t)(i))
 	{
 		error_handler(ERR_MAP_RECT, NULL, (void **)map_array);
+	}
+}
+
+void	check_outside_walls(char **map_array)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map_array[i])
+	{
+		j = 0;
+		while (map_array[i][j])
+		{
+			if (i == 0 || i == array_len(map_array) - 1)
+			{
+				if (map_array[i][j] != '1')
+					error_handler_2(ERR_MAP_WALLS, NULL, (void **)map_array);
+			}
+			else if (j == 0 || j == (int)ft_strlen(map_array[i]) - 1)
+			{
+				if (map_array[i][j] != '1')
+					error_handler_2(ERR_MAP_WALLS, NULL, (void **)map_array);
+			}
+			j++;
+		}
+		i++;
 	}
 }

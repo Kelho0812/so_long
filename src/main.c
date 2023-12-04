@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:25:07 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/11/30 16:21:42 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/04 08:43:12 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		printf("You should write: %s <map_relative_path>\n", argv[0]);
+		ft_printf("You should write: %s <map_relative_path>\n", argv[0]);
 		return (1);
 	}
 	

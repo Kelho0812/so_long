@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 12:08:35 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/11/30 16:24:37 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/04 08:54:22 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_data
 # define ERR_MAP_WALLS 8
 
 int					error_handler(int error_msg, void *param, void **param2);
+int					error_handler_2(int error_msg, void *param, void **param2);
 
 /* ************************************************************************** */
 /*                                Events                                      */
@@ -95,6 +96,7 @@ char				**map_parser(int fd);
 void				map_validator(char **map_array);
 void				check_letters(char **map_array);
 void				check_size(char **map_array);
+void				check_outside_walls(char **map_array);
 
 /* ************************************************************************** */
 /*                                FREE                                        */
@@ -105,4 +107,7 @@ void				free_pnts(void **pnts);
 void				free_ppnts(void ***ppnts);
 void				type_free(va_list args, const char format);
 void				multiple_free(const char *format, ...);
+
+int					array_len(char **array);
+
 #endif
