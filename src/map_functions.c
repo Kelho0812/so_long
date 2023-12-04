@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:16:43 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/04 16:16:47 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:23:56 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**map_parser(int fd)
 
 void	map_validator(char **map_array, char **map_copy, t_data *data)
 {
-	check_letters(map_array);
+	check_letters(map_array, map_copy);
 	check_pe_count(map_array);
 	check_c_count(map_array);
 	check_size(map_array);
