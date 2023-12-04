@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:25:20 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/04 11:01:37 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:50:38 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,45 @@ int	error_handler_2(int error_msg, void *param, void **param2)
 		(void)param;
 		ft_printf("Map Error (Not surrounded by walls)\n");
 		free_pnts(param2);
-		exit(1);
 	}
 	else if (error_msg == ERR_MAP_EXT)
 	{
 		(void)param;
 		ft_printf("Map Error (Wrong Extension)\n");
-		exit(1);
 	}
 	else if (error_msg == ERR_MAP_CHARS2)
 	{
 		ft_printf("Map Error (No Exit, Player or Consumable)\n");
-		exit(1);
 	}
 	else if (error_msg == ERR_MAP_PATH)
 	{
 		ft_printf("Map Error (No Path to Exit or Consumable)\n");
-		exit(1);
 	}
 	else if (error_msg == ERR_MAP_OPEN)
 	{
 		ft_printf("Map Error (Can't open file)\n");
-		exit(1);
 	}
-	return (0);
+	exit(1);
+}
+
+void	error_handler_3(int error_msg, void *param, void **param2)
+{
+	if (error_msg == ERR_MAP_PLAYER_COUNT)
+	{
+		(void)param;
+		ft_printf("Map Error (Incorrect number of P)\n");
+		free_pnts(param2);
+	}
+	else if (error_msg == ERR_MAP_EXIT_COUNT)
+	{
+		(void)param;
+		ft_printf("Map Error (Incorrect number of E)\n");
+		free_pnts(param2);
+	}
+	else if (error_msg == ERR_MAP_CONSUMABLE_COUNT)
+	{
+		ft_printf("Map Error (Incorrect number of C)\n");
+		free_pnts(param2);
+	}
+	exit(1);
 }
