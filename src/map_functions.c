@@ -6,25 +6,31 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:16:43 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/04 08:54:54 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:46:25 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 #include <errno.h>
 
-char	**parse_n_validate_map(char *map_path)
+void	parse_n_validate_map(char *map_path, t_data *data)
 {
-	int		fd;
-	char	**map_array;
-
+	int	fd;
+	char ** map_copy;
+	if (ft_strncmp(map_path + ft_strlen(map_path) - 4, ".ber", 4) != 0)
+		error_handler_2(ERR_MAP_EXT, NULL, NULL);
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		error_handler(ERR_MAP_OPEN, NULL, NULL);
-	map_array = map_parser(fd);
+	data->map.map_array = map_parser(fd);
 	close(fd);
-	map_validator(map_array);
-	return (map_array);
+	data->map.width = ft_strlen(data->map.map_array[0]);
+	data->map.height = array_len(data->map.map_array);
+	get_player_pos(data->map.map_array, &(data->player.x), &(data->player.y));
+	map_copy = copy_map(data->map.map_array);
+	map_validator(data->map.map_array, data);
+	data->map.map_array = copy_map(map_copy);
+	free_pnts((void **)map_copy);
 }
 
 char	**map_parser(int fd)
@@ -56,11 +62,13 @@ char	**map_parser(int fd)
 	return (lines[count] = NULL, lines);
 }
 
-void	map_validator(char **map_array)
+void	map_validator(char **map_array, t_data *data)
 {
 	check_letters(map_array);
+	check_exit_player_cons(map_array);
 	check_size(map_array);
 	check_outside_walls(map_array);
+	check_path_honor_pabernar(map_array, data);
 }
 
 void	check_letters(char **map_array)
@@ -82,6 +90,37 @@ void	check_letters(char **map_array)
 		}
 		i++;
 	}
+}
+
+void	check_exit_player_cons(char **map_array)
+{
+	int		i;
+	int		j;
+	bool	p;
+	bool	c;
+	bool	e;
+
+	p = false;
+	c = false;
+	e = false;
+	i = 0;
+	while (map_array[i])
+	{
+		j = 0;
+		while (map_array[i][j])
+		{
+			if (map_array[i][j] == 'P')
+				p = true;
+			if (map_array[i][j] == 'C')
+				c = true;
+			if (map_array[i][j] == 'E')
+				e = true;
+			j++;
+		}
+		i++;
+	}
+	if (p == false || c == false || e == false)
+		error_handler(ERR_MAP_CHARS2, NULL, (void **)map_array);
 }
 
 void	check_size(char **map_array)
@@ -128,4 +167,109 @@ void	check_outside_walls(char **map_array)
 		}
 		i++;
 	}
+}
+
+void dfs(char **map, int x, int y)
+{
+	if (map[x][y] == '1' || map[x][y] == 'V')
+		return;
+	if (map[x][y] != 'P')
+		map[x][y] = 'V';
+	dfs(map, x - 1, y);
+	dfs(map, x + 1, y);
+	dfs(map, x, y - 1);
+	dfs(map, x, y + 1);
+}
+
+void	check_path_honor_pabernar(char **map, t_data *data)
+{
+    char	**original_map;
+    int	i;
+    int j;
+
+    original_map = copy_map(map);
+    dfs(map, data->player.x, data->player.y);
+    i=0;
+    while (map[i])
+    {
+        j = 0;
+        while (map[i][j])
+        {
+            if (map[i][j] == 'C' || map[i][j] == 'E')
+                error_handler_2(ERR_MAP_PATH, NULL, (void **)original_map);
+            j++;
+        }
+        i++;
+    }
+    map = copy_map(original_map);
+    free_pnts((void **)original_map);
+    return ;
+}
+
+void	get_player_pos(char **map_array, int *x, int *y)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map_array[i])
+	{
+		j = 0;
+		while (map_array[i][j])
+		{
+			if (map_array[i][j] == 'P')
+			{
+				*x = i;
+				*y = j;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	reset_map(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'V')
+				map[i][j] = '0';
+			j++;
+		}
+		i++;
+	}
+}
+
+char	**copy_map(char **map)
+{
+    int		i;
+    char	**copy;
+
+    i = 0;
+    while (map[i])
+        i++;
+    copy = malloc((i + 1) * sizeof(char *));
+    if (!copy)
+        return (NULL);
+    copy[i] = NULL;
+    i = 0;
+    while (map[i])
+    {
+        copy[i] = ft_strdup(map[i]);
+        if (!copy[i])
+        {
+            free_pnts((void **)copy);
+            return (NULL);
+        }
+        i++;
+    }
+    return (copy);
 }

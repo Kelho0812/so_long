@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 12:08:35 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/04 08:54:22 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:31:16 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,28 @@ typedef struct s_img
 	char			*path;
 	struct s_img	*next;
 }					t_img;
+
+typedef struct s_player
+{
+	int				x;
+	int				y;
+	int				moves;
+}					t_player;
+
+typedef struct s_map
+{
+	int				width;
+	int				height;
+	char			**map_array;
+}					t_map;
 typedef struct s_data
 {
 	void			*mlx;
 	void			*win;
 	int				color;
 	t_img			img;
+	t_player		player;
+	t_map			map;
 }					t_data;
 
 /* ************************************************************************** */
@@ -62,8 +78,11 @@ typedef struct s_data
 # define ERR_IMAGE 4
 # define ERR_MAP_OPEN 5
 # define ERR_MAP_CHARS 6
-# define ERR_MAP_RECT 7
-# define ERR_MAP_WALLS 8
+# define ERR_MAP_CHARS2 7
+# define ERR_MAP_RECT 8
+# define ERR_MAP_WALLS 9
+# define ERR_MAP_EXT 10
+# define ERR_MAP_PATH 11
 
 int					error_handler(int error_msg, void *param, void **param2);
 int					error_handler_2(int error_msg, void *param, void **param2);
@@ -91,12 +110,18 @@ int					change_color(t_data *data);
 /*                                MAP                                        */
 /* ************************************************************************** */
 
-char				**parse_n_validate_map(char *map_path);
+void				parse_n_validate_map(char *map_path, t_data *data);
 char				**map_parser(int fd);
-void				map_validator(char **map_array);
+void				map_validator(char **map_array, t_data *data);
 void				check_letters(char **map_array);
 void				check_size(char **map_array);
 void				check_outside_walls(char **map_array);
+void				dfs(char **map, int x, int y);
+void				check_exit_player_cons(char **map_array);
+void				check_path_honor_pabernar(char **map, t_data *data);
+void				get_player_pos(char **map_array, int *x, int *y);
+void				reset_map(char **map);
+char				**copy_map(char **map);
 
 /* ************************************************************************** */
 /*                                FREE                                        */

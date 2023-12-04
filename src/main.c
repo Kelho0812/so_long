@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:25:07 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/04 08:43:12 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/04 11:56:12 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ int	main(int argc, char **argv)
 		ft_printf("You should write: %s <map_relative_path>\n", argv[0]);
 		return (1);
 	}
-	
-	// t_data	data;
-	char	**map_array;
+	t_data	data;
 	int		i;
 
-	map_array = parse_n_validate_map(argv[1]);
+	parse_n_validate_map(argv[1], &data);
 	// data.mlx = mlx_init();
 	// if (!data.mlx)
 	// 	return (error_handler(ERR_MLX, NULL, NULL));
@@ -43,11 +41,11 @@ int	main(int argc, char **argv)
 	// mlx_destroy_display(data.mlx);
 	// free(data.mlx);
 	i = 0;
-	while (map_array[i] != NULL)
+	while (data.map.map_array[i] != NULL)
 	{
-		ft_printf("map_array: %s\n", map_array[i]);
+		ft_printf("map_array: %s\n", data.map.map_array[i]);
 		i++;
 	}
-	free_pnts((void **)map_array);
+	free_pnts((void **)data.map.map_array);
 	return (0);
 }
