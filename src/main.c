@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:25:07 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/04 11:56:12 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:03:00 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,13 @@ int	main(int argc, char **argv)
 	// data.win = mlx_new_window(data.mlx, 600, 400, "my window");
 	// if (!data.win)
 	// 	return (error_handler(ERR_WINDOW, data.mlx, NULL));
-	// mlx_loop_hook(data.mlx, &render, &data);
+	// // mlx_loop_hook(data.mlx, &render, &data);
+	// printf("%d\n%d",data.img.width,data.img.height);
+	// data.img.img = mlx_xpm_file_to_image(data.mlx, "Map_tile_23.xpm", &data.img.width, &data.img.height);
+	// mlx_put_image_to_window(data.mlx, data.win, data.img.img, 30, 30);
+	// data.img.img = mlx_xpm_file_to_image(data.mlx, "Rock1_1.xpm", &data.img.width, &data.img.height);
+	// printf("%d\n%d\n",data.img.width,data.img.height);
+	// mlx_put_image_to_window(data.mlx, data.win, data.img.img, 50, 30);
 	// mlx_hook(data.win, KeyPress, KeyPressMask, &handle_keypress, &data);
 	// mlx_hook(data.win, DestroyNotify, StructureNotifyMask,&on_destroy,&data);
 	// mlx_loop(data.mlx);
@@ -47,5 +53,5 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	free_pnts((void **)data.map.map_array);
-	return (0);
+	return ((void)argc, (void)argv, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:16:43 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/04 16:23:56 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:24:16 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	parse_n_validate_map(char *map_path, t_data *data)
 		error_handler_2(ERR_MAP_EXT, NULL, NULL);
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
-		error_handler(ERR_MAP_OPEN, NULL, NULL);
-	data->map.map_array = map_parser(fd);
+		error_handler_2(ERR_MAP_OPEN, NULL, NULL);
+	data->map.map_array = map_parser(fd, 0, 0, map_path);
 	close(fd);
 	data->map.width = ft_strlen(data->map.map_array[0]);
 	data->map.height = array_len(data->map.map_array);
@@ -33,66 +33,64 @@ void	parse_n_validate_map(char *map_path, t_data *data)
 	free_pnts((void **)map_copy);
 }
 
-char	**map_parser(int fd)
+char	**map_parser(int fd, int i, int count, char *map_path)
 {
-    char	**lines;
-    char	*line;
-    int		count;
+	char	**lines;
+	char	*line;
 
-    count = 0;
-    lines = NULL;
-    line = get_next_line(fd);
-    while (line)
-    {
-        if (count == 0)
-            lines = malloc(sizeof(char *));
-        else
-            lines = realloc(lines, (count + 1) * sizeof(char *));
-        if (lines == NULL)
-        {
-            free(line); // Free the line if lines is NULL
-            return (free_pnts((void **)lines), NULL);
-        }
-        lines[count++] = line;
-        line = get_next_line(fd);
-    }
-    free(line); // Free the last line read by get_next_line
-    lines = realloc(lines, (count + 1) * sizeof(char *));
-    lines[count] = NULL;
-    return (lines);
+	line = get_next_line(fd);
+	if (!line)
+		exit(1);
+	while (line)
+	{
+		count++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	lines = (char **)malloc(sizeof(char *) * (count + 1));
+	lines[count] = NULL;
+	close(fd);
+	fd = open(map_path, O_RDONLY);
+	line = get_next_line(fd);
+	while (line)
+	{
+		lines[i++] = ft_strdup(line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (lines);
 }
 
 void	map_validator(char **map_array, char **map_copy, t_data *data)
 {
 	check_letters(map_array, map_copy);
-	check_pe_count(map_array);
-	check_c_count(map_array);
-	check_size(map_array);
-	check_outside_walls(map_array);
+	check_pe_count(map_array, map_copy, 0, 0);
+	check_c_count(map_array, map_copy);
+	check_size(map_array, map_copy);
+	check_outside_walls(map_array, map_copy);
 	check_path_honor_pabernar(map_array, map_copy, data);
 }
 
 void	check_path_honor_pabernar(char **map, char **map_copy, t_data *data)
 {
-    int		i;
-    int		j;
+	int	i;
+	int	j;
 
-    get_player_pos(data->map.map_array, &(data->player.x), &(data->player.y));
-    dfs(map, data->player.x, data->player.y);
-    i = 0;
-    while (map[i])
-    {
-        j = 0;
-        while (map[i][j])
-        {
-            if (map[i][j] == 'C' || map[i][j] == 'E')
-                error_handler_2(ERR_MAP_PATH, (void **)map_copy,(void **) map);
-            j++;
-        }
-        i++;
-    }
-    free_pnts((void **)map); // Free the map after DFS
-    free_pnts((void **)map);
+	get_player_pos(data->map.map_array, &(data->player.x), &(data->player.y));
+	dfs(map, data->player.x, data->player.y);
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'C' || map[i][j] == 'E')
+				error_handler_2(ERR_MAP_PATH, (void **)map_copy, (void **)map);
+			j++;
+		}
+		i++;
+	}
+	free_pnts((void **)map);
 }
 
 void	dfs(char **map, int x, int y)

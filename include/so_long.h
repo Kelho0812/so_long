@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 12:08:35 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/04 16:20:09 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:23:25 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct s_data
 
 int					error_handler(int error_msg, void *param, void **param2);
 int					error_handler_2(int error_msg, void **param, void **param2);
-void				error_handler_3(int error_msg, void *param, void **param2);
+void				error_handler_3(int error_msg, void **param, void **param2);
 
 /* ************************************************************************** */
 /*                                Events                                      */
@@ -118,18 +118,21 @@ int					change_color(t_data *data);
 /* ************************************************************************** */
 
 void				parse_n_validate_map(char *map_path, t_data *data);
-char				**map_parser(int fd);
-void				map_validator(char **map_array, char** map_copy, t_data *data);
+char				**map_parser(int fd, int i, int count, char *map_path);
+void				map_validator(char **map_array, char **map_copy,
+						t_data *data);
 void				check_letters(char **map_array, char **map_copy);
-void				check_size(char **map_array);
-void				check_outside_walls(char **map_array);
-void				check_path_honor_pabernar(char **map, char **map_copy, t_data *data);
-void				check_pe_count(char **map_array);
+void				check_size(char **map_array, char **map_copy);
+void				check_outside_walls(char **map_array, char **map_copy);
+void				check_path_honor_pabernar(char **map, char **map_copy,
+						t_data *data);
+void				check_pe_count(char **map_array, char **map_error,
+						int p_count, int e_count);
 void				get_player_pos(char **map_array, int *x, int *y);
 void				dfs(char **map, int x, int y);
 void				reset_map(char **map);
 char				**copy_map(char **map);
-void				check_c_count(char **map_array);
+void				check_c_count(char **map_array, char **map_copy);
 
 /* ************************************************************************** */
 /*                                FREE                                        */
