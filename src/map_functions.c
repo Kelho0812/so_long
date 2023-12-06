@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:16:43 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/05 12:24:16 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:25:57 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 void	parse_n_validate_map(char *map_path, t_data *data)
 {
 	int		fd;
-	char	**map_copy;
 
 	if (ft_strncmp(map_path + ft_strlen(map_path) - 4, ".ber", 4) != 0)
 		error_handler_2(ERR_MAP_EXT, NULL, NULL);
@@ -27,10 +26,9 @@ void	parse_n_validate_map(char *map_path, t_data *data)
 	close(fd);
 	data->map.width = ft_strlen(data->map.map_array[0]);
 	data->map.height = array_len(data->map.map_array);
-	map_copy = copy_map(data->map.map_array);
-	map_validator(data->map.map_array, map_copy, data);
-	data->map.map_array = copy_map(map_copy);
-	free_pnts((void **)map_copy);
+	data->map.map_copy = copy_map(data->map.map_array);
+	map_validator(data->map.map_array, data->map.map_copy, data);
+	data->map.map_array = copy_map(data->map.map_copy);
 }
 
 char	**map_parser(int fd, int i, int count, char *map_path)
@@ -65,7 +63,7 @@ void	map_validator(char **map_array, char **map_copy, t_data *data)
 {
 	check_letters(map_array, map_copy);
 	check_pe_count(map_array, map_copy, 0, 0);
-	check_c_count(map_array, map_copy);
+	data->player.collectables = check_c_count(map_array, map_copy);
 	check_size(map_array, map_copy);
 	check_outside_walls(map_array, map_copy);
 	check_path_honor_pabernar(map_array, map_copy, data);

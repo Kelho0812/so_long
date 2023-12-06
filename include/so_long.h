@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 12:08:35 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/05 12:23:25 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:54:36 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ typedef struct s_player
 	int				x;
 	int				y;
 	int				moves;
+	int				collectables;
+	t_img			down;
+	t_img			left;
+	t_img			right;
+	t_img			up;
 }					t_player;
 
 typedef struct s_map
@@ -58,13 +63,17 @@ typedef struct s_map
 	int				width;
 	int				height;
 	char			**map_array;
+	char			**map_copy;
 }					t_map;
 typedef struct s_data
 {
 	void			*mlx;
 	void			*win;
 	int				color;
-	t_img			img;
+	t_img			wall;
+	t_img			ground;
+	t_img			exit;
+	t_img			collectible;
 	t_player		player;
 	t_map			map;
 }					t_data;
@@ -109,9 +118,15 @@ int					key_press(int keycode, t_data *data);
 /*                                RENDER                                      */
 /* ************************************************************************** */
 
-int					render_and_change_color(t_data *data);
-int					render(t_data *data);
-int					change_color(t_data *data);
+void				image_init(t_data *data);
+void				image_draw(t_data *data);
+void				image_destroy(t_data *data);
+
+/* ************************************************************************** */
+/*                                Moves                                      */
+/* ************************************************************************** */
+
+void				move_player(t_data *data, int x, int y, void *img);
 
 /* ************************************************************************** */
 /*                                MAP                                        */
@@ -132,7 +147,7 @@ void				get_player_pos(char **map_array, int *x, int *y);
 void				dfs(char **map, int x, int y);
 void				reset_map(char **map);
 char				**copy_map(char **map);
-void				check_c_count(char **map_array, char **map_copy);
+int					check_c_count(char **map_array, char **map_copy);
 
 /* ************************************************************************** */
 /*                                FREE                                        */

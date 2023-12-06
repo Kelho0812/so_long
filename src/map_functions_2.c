@@ -6,7 +6,7 @@
 /*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 15:06:12 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/05 12:25:19 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:25:28 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	check_pe_count(char **map_array, char **map_error, int p_count,
 			(void **)map_array);
 }
 
-void	check_c_count(char **map_array, char **map_error)
+int	check_c_count(char **map_array, char **map_error)
 {
 	int	i;
 	int	j;
@@ -132,4 +132,5 @@ void	check_c_count(char **map_array, char **map_error)
 	if (c_count == 0)
 		error_handler_3(ERR_MAP_CONSUMABLE_COUNT, (void **)map_error,
 			(void **)map_array);
+	return (c_count);
 }
