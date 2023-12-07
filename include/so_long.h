@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 12:08:35 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/06 15:54:36 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/07 09:49:43 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int					key_press(int keycode, t_data *data);
 /* ************************************************************************** */
 
 void				image_init(t_data *data);
-void				image_draw(t_data *data);
+void				image_draw(t_data *data, int i, int j);
 void				image_destroy(t_data *data);
 
 /* ************************************************************************** */

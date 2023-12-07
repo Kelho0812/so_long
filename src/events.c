@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:11:54 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/06 16:03:45 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/07 09:51:02 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	path_validator(t_data *data, int x, int y)
 {
 	char	c;
-	
+
 	c = data->map.map_array[data->player.x + x][data->player.y + y];
 	if (c == '1')
 		return (0);
