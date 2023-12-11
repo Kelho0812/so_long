@@ -6,11 +6,11 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 14:39:45 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/11/30 14:52:07 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/11 13:22:10 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../so_long.h"
 
 char	*ft_strjoin_get(char *s1, const char *s2)
 {
@@ -39,21 +39,21 @@ char	*ft_strjoin_get(char *s1, const char *s2)
 	return (new_str);
 }
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
+// size_t	ft_strlen(const char *str)
+// {
+// 	size_t	i;
 
-	if (!str)
-	{
-		return (0);
-	}
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
+// 	if (!str)
+// 	{
+// 		return (0);
+// 	}
+// 	i = 0;
+// 	while (str[i] != '\0')
+// 	{
+// 		i++;
+// 	}
+// 	return (i);
+// }
 
 char	*ft_substr_get(char *s)
 {

@@ -40,6 +40,8 @@ SRC = ft_atoi.c\
 	ft_strmapi.c\
 	ft_striteri.c\
 	ft_itoa.c\
+	get_next_line.c\
+	get_next_line_utils.c\
 
 SRC_BONUS = ft_lstnew.c\
 	ft_lstadd_front.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_functions_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorteixe <jorteixe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 15:06:12 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/12/06 15:25:28 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/11 13:16:57 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	check_letters(char **map_array, char **map_copy)
 		j = 0;
 		while (map_array[i][j])
 		{
-			if (map_array[i][j] != '0' && map_array[i][j] != '1'
-				&& map_array[i][j] != 'C' && map_array[i][j] != 'E'
-				&& map_array[i][j] != 'P' && map_array[i][j] != '\n')
+			if (ft_strchr("01CEP\n", map_array[i][j]) == NULL)
 				error_handler(ERR_MAP_CHARS, (void *)map_copy,
 					(void **)map_array);
 			j++;

@@ -6,11 +6,11 @@
 /*   By: jorteixe <jorteixe@student.42porto.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 12:32:26 by jorteixe          #+#    #+#             */
-/*   Updated: 2023/11/30 10:23:09 by jorteixe         ###   ########.fr       */
+/*   Updated: 2023/12/11 13:21:14 by jorteixe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../so_long.h"
 
 char	*get_next_line(int fd)
 {
