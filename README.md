@@ -24,7 +24,7 @@ So_Long is a simple 2D game written in C using the MinilibX graphics library. Th
 - Avoid collisions with enemies and obstacles.
 
 **Additional Notes:**
-- The game is a part of a programming project for the 42 school curriculum and serves as an introduction to basic game development concepts using C and the MinilibX library.
+- The game is part of the 42Network Curriculum. and serves as an introduction to basic game development concepts using C and the MinilibX library.
 - Feel free to explore and modify the code for educational purposes.
 
 **Contributing:**
